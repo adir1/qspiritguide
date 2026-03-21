@@ -208,3 +208,8 @@ npm run workers:deploy
 ## 📄 License
 
 MIT
+
+## Themes under consideration
+
+https://astro.build/themes/details/airy-personal-page/
+

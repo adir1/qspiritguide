@@ -213,3 +213,11 @@ MIT
 
 https://astro.build/themes/details/airy-personal-page/
 
+https://astro.build/themes/details/purfectly-zen/
+
+https://astro.build/themes/details/ryze/
+
+https://astro.build/themes/details/astrogon/
+
+https://astro.build/themes/details/space-ahead/
+

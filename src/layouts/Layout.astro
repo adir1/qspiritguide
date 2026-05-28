@@ -1,23 +1,63 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = 'qSpirit Guide - Your Personal Quantum Multiverse Navigator',
+  description = 'Navigate the Multiverse. Expand your Essence. Using the latest in spiritual and quantum principles to guide your daily consciousness.',
+  canonicalPath = '',
+  noindex = false,
+} = Astro.props;
+
+const siteUrl = Astro.site?.href || '';
+const canonicalUrl = `${siteUrl.replace(/\/$/, '')}${canonicalPath}`;
+
+import '../styles/global.css';
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#E8A598" />
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+    <link rel="icon" type="image/png" href="/favicon.png?v=1" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=1" sizes="180x180" />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <title>{title}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Patrick+Hand&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebApplication',
+        name: 'qSpirit Guide',
+        description: 'Your Personal Spirit Guide to the Multiverse',
+        applicationCategory: 'HealthApplication',
+        operatingSystem: 'Web',
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD',
+        },
+      })}
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

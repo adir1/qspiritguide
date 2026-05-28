@@ -18,7 +18,8 @@ Facilitate the expansion of consciousness through the lens of quantum entangleme
 * **The "Quantum" Justification:** "High-frequency" and "leaps" (as in Quantum Leaps) give a nod to the science behind the spirituality without being overly technical.
 * **The Assurance Factor:** The phrase "perfectly positioned" is the ultimate reassurance for a seeking soul—it turns their current "confusion" into a "starting point" for their next expansion.
 
-### A few "Quantum" Navigation Menu Ideas:
+### A few "Quantum" Navigation Menu Ideas
+
 If you build the site, these could replace standard labels to keep the theme consistent:
 
 * **"The Gateway"** (Instead of Home)
@@ -30,56 +31,63 @@ Next investigate "Quantum Principles" or "Core Pillars" for your teaching that r
 
 ## 🏗️ Architecture
 
-A modern full-stack web application combining **Astro** for the front-end with **Cloudflare Workers** for serverless APIs, featuring authentication, CAPTCHA protection, and a D1 database.
+A modern full-stack web application combining **Astro** for the front-end with **Cloudflare Workers** for serverless APIs, featuring Turnstile authentication, CAPTCHA protection, and a D1 database.
 
 ### Frontend
+
 - **Astro**: Static site generation with server-side rendering (SSR)
-- **TypeScript**: Type-safe JavaScript throughout
-- **Cloudflare Pages**: Deployment platform
+* **TypeScript**: Type-safe JavaScript throughout
+* **Cloudflare Pages**: Deployment platform
 
 ### Backend (Serverless)
+
 - **Cloudflare Workers**: Serverless API endpoints
-- **Cloudflare D1**: SQLite database at the edge
-- **Cloudflare KV**: Session and cache storage
+* **Cloudflare D1**: SQLite database at the edge
+* **Cloudflare KV**: Session and cache storage
 
 ### Security
+
 - **Cloudflare Turnstile**: CAPTCHA protection (privacy-first alternative to reCAPTCHA)
-- **Cloudflare Workers Auth**: Protected API endpoints
-- **Session Management**: KV-backed secure sessions
+* **Cloudflare Workers Auth**: Protected API endpoints
+* **Session Management**: KV-backed secure sessions
 
 ## 📋 Prerequisites
 
-- Node.js 18+ and npm
-- Cloudflare account (free tier supported)
-- Wrangler CLI: `npm install -g wrangler`
+* Node.js 18+ and pnpm
+* Cloudflare account (free tier supported)
+* Wrangler CLI: `pnpm add -g wrangler`
 
 ## 🚀 Quick Start
 
 ### 1. Install Dependencies
+
 ```bash
-npm install
+pnpm install
 ```
 
 ### 2. Local Development
+
 ```bash
 # Run Astro dev server
-npm run dev
+pnpm run dev
 
 # In another terminal, run Cloudflare Workers locally
-npm run workers:dev
+pnpm run workers:dev
 ```
 
 Visit `http://localhost:3000` for the Astro front-end and Wrangler will serve workers on a local port.
 
 ### 3. Build for Production
+
 ```bash
-npm run build
+pnpm run build
 ```
 
 ### 4. Deploy
+
 ```bash
 # Deploy to Cloudflare
-npm run workers:deploy
+pnpm run workers:deploy
 ```
 
 ## 📁 Project Structure
@@ -107,11 +115,13 @@ qspiritguide/
 ### Cloudflare Setup
 
 1. **D1 Database**: Update `wrangler.toml` with your database ID
+
    ```toml
    database_id = "your-database-id"
    ```
 
 2. **Turnstile**: Add your Turnstile site key to environment variables
+
    ```bash
    # .env or wrangler.toml
    TURNSTILE_SITE_KEY=xxx
@@ -119,6 +129,7 @@ qspiritguide/
    ```
 
 3. **KV Namespace**: Configure session storage
+
    ```toml
    [[kv_namespaces]]
    binding = "SESSION_STORE"
@@ -136,9 +147,11 @@ qspiritguide/
 ## 📚 API Endpoints
 
 ### POST `/api/auth`
+
 Handles login, registration, logout, and email verification.
 
 **Request:**
+
 ```json
 {
   "action": "login",
@@ -149,9 +162,11 @@ Handles login, registration, logout, and email verification.
 ```
 
 ### POST `/api/verify-turnstile`
+
 Verifies Cloudflare Turnstile tokens.
 
 **Request:**
+
 ```json
 {
   "token": "3D86db...",
@@ -163,47 +178,52 @@ Verifies Cloudflare Turnstile tokens.
 
 This project is organized to support the BMAD (Break down, Map, Adjust, Detail) method:
 
-- **Break down**: Architecture separated into clear layers (frontend, API, database)
-- **Map**: Middleware and routing handled by Astro and Workers
-- **Adjust**: Configuration through wrangler.toml and astro.config.mjs
-- **Detail**: Implementation in specific function files with clear responsibilities
+* **Break down**: Architecture separated into clear layers (frontend, API, database)
+* **Map**: Middleware and routing handled by Astro and Workers
+* **Adjust**: Configuration through wrangler.toml and astro.config.mjs
+* **Detail**: Implementation in specific function files with clear responsibilities
 
 ## 📝 Development Guidelines
 
 ### Code Organization
+
 - Keep API endpoints focused and single-purpose
-- Use TypeScript for type safety
-- Follow naming conventions: camelCase for functions, PascalCase for components
+* Use TypeScript for type safety
+* Follow naming conventions: camelCase for functions, PascalCase for components
 
 ### Adding Features
+
 1. Create new `.astro` files in `src/pages/` for routes
 2. Add API handlers in `functions/` directory
 3. Create reusable components in `src/components/`
 4. Update `wrangler.toml` if adding new bindings
 
 ### Database Migrations
+
 Store D1 migrations in a `migrations/` directory and execute via Wrangler CLI.
 
 ## 🚢 Deployment
 
 ### To Cloudflare Pages (Frontend)
+
 ```bash
-npm run build
+pnpm run build
 # Push dist/ to your git repo connected to Cloudflare Pages
 ```
 
 ### To Cloudflare Workers (API)
+
 ```bash
-npm run workers:deploy
+pnpm run workers:deploy
 ```
 
 ## 📖 Resources
 
-- [Astro Documentation](https://docs.astro.build/)
-- [Cloudflare Workers](https://developers.cloudflare.com/workers/)
-- [Cloudflare D1](https://developers.cloudflare.com/d1/)
-- [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/)
-- [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/)
+* [Astro Documentation](https://docs.astro.build/)
+* [Cloudflare Workers](https://developers.cloudflare.com/workers/)
+* [Cloudflare D1](https://developers.cloudflare.com/d1/)
+* [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/)
+* [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/)
 
 ## 📄 License
 
@@ -211,13 +231,12 @@ MIT
 
 ## Themes under consideration
 
-https://astro.build/themes/details/airy-personal-page/
+<https://astro.build/themes/details/purfectly-zen/>
 
-https://astro.build/themes/details/purfectly-zen/
+<https://astro.build/themes/details/airy-personal-page/>
 
-https://astro.build/themes/details/ryze/
+<https://www.astrothemes.dev/theme/twbs-bootstrap/>
 
-https://astro.build/themes/details/astrogon/
+## Great Transformers.js example
 
-https://astro.build/themes/details/space-ahead/
-
+<https://huggingface.co/spaces/webml-community/Nemotron-3-Nano-WebGPU/tree/main/src>

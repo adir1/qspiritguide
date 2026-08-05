@@ -1,178 +1,18 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   Heart,
   Sparkles,
-  Menu,
-  X,
   Compass,
   Users,
   BookOpen,
-  Star,
   Lock,
   CheckCircle,
-  Infinity as InfinityIcon,
   Orbit,
-  Activity,
-  ArrowRight,
 } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import Navigation from './Navigation';
+import Footer from './Footer';
 
-const Navigation = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['home', 'features', 'community', 'wisdom', 'cta'];
-      let current = 'home';
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 100) {
-            current = section;
-          }
-        }
-      }
-      setActiveSection(current);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const navLinks = [
-    { href: '#features', label: 'Path Mapping', id: 'features' },
-    { href: '#community', label: 'Source Connection', id: 'community' },
-    { href: '#wisdom', label: 'Expansion Lab', id: 'wisdom' },
-  ];
-
-  return (
-    <nav className="bg-background/80 border-border/40 relative sticky top-0 z-50 flex w-full items-center justify-between border-b px-6 py-6 shadow-sm backdrop-blur-lg md:px-12">
-      <a
-        href="/"
-        className="text-primary flex items-center gap-3 transition-opacity hover:opacity-80"
-      >
-        <Compass className="h-8 w-8 animate-spin-slow text-red-400" />
-        <span className="font-heading text-foreground text-2xl font-bold">
-          qSpirit Guide
-        </span>
-      </a>
-
-      {/* Desktop Nav */}
-      <div className="hidden items-center gap-8 font-medium md:flex">
-        {navLinks.map((link) => (
-          <a
-            key={link.id}
-            href={link.href}
-            data-testid={`link-${link.id}`}
-            className={`relative w-fit transition-colors ${
-              activeSection === link.id
-                ? 'text-primary font-bold'
-                : 'text-muted-foreground hover:text-primary'
-            }`}
-          >
-            <motion.div whileHover={{ scale: 1.05 }}>
-              {link.label}
-              {activeSection === link.id && (
-                <motion.div
-                  layoutId="activeIndicator"
-                  className="bg-primary absolute right-0 bottom-0 left-0 h-1 rounded-full"
-                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                />
-              )}
-            </motion.div>
-          </a>
-        ))}
-        <a href="/join">
-          <button
-            data-testid="button-join-nav"
-            className="font-heading bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 py-2 font-bold shadow-lg transition-all hover:scale-105 hover:shadow-xl"
-          >
-            Begin Your Leap
-          </button>
-        </a>
-      </div>
-
-      {/* Mobile Nav Toggle */}
-      <button
-        className="text-foreground bg-primary/10 hover:bg-primary/25 rounded-full p-2 transition-colors md:hidden"
-        onClick={() => setIsOpen(!isOpen)}
-        data-testid="button-menu-toggle"
-      >
-        {isOpen ? <X /> : <Menu />}
-      </button>
-
-      {/* Mobile Nav Menu */}
-      <AnimatePresence mode="wait">
-        {isOpen && (
-          <motion.div
-            key="mobile-menu"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="bg-card border-border/60 absolute top-full right-4 left-4 z-50 mt-2 flex w-[calc(100%-2rem)] flex-col gap-6 rounded-2xl border p-8 shadow-2xl md:hidden"
-          >
-            {navLinks.map((link, idx) => (
-              <motion.a
-                key={link.id}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                data-testid={`link-${link.id}-mobile`}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{
-                  delay: idx * 0.08,
-                  duration: 0.25,
-                  ease: 'easeOut',
-                }}
-                whileHover={{ x: 4 }}
-                className={`w-fit text-center text-lg font-medium transition-colors duration-300 ${
-                  activeSection === link.id
-                    ? 'text-primary font-bold'
-                    : 'text-foreground hover:text-primary'
-                }`}
-              >
-                {link.label}
-              </motion.a>
-            ))}
-            <motion.div
-              className="border-border/40 border-t pt-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{
-                delay: navLinks.length * 0.08 + 0.1,
-                duration: 0.25,
-              }}
-            >
-              <a
-                href="/join"
-                className="block w-full"
-                onClick={() => setIsOpen(false)}
-              >
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <button
-                    data-testid="button-join-mobile"
-                    className="font-heading bg-primary text-primary-foreground hover:bg-primary/90 w-full rounded-full py-4 font-medium shadow-lg transition-all hover:shadow-xl"
-                  >
-                    Begin Your Leap
-                  </button>
-                </motion.div>
-              </a>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
-  );
-};
 
 const Hero = () => {
   return (
@@ -368,22 +208,22 @@ const Features = () => {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <FeatureCard
             title="Quantum Entanglement"
-            desc="Realize the eternal connection between your consciousness and the cosmic source, anchoring your presence in any reality."
-            img="/images/NL8zWQFTQVTHFOOt8eXa--1--e7nx1.jpg"
+            desc="Identify the core values and passions that define you. Align your inner essence with external career opportunities to find your natural fit."
+            img="/images/card_entanglement.jpg"
             delay={0.1}
             testId="card-feature-entanglement"
           />
           <FeatureCard
             title="Multiverse Navigation"
-            desc="Chart your choices across infinite paths of existence, mapping out the trajectories that best serve your evolutionary path."
-            img="/images/ZwneXb9zz4enzOrls4Oe--0--TbJ-B.jpg"
+            desc="Chart and simulate multiple career and life trajectories risk-free. Map parallel paths of potential to make future transitions with confidence."
+            img="/images/card_navigation.jpg"
             delay={0.2}
             testId="card-feature-navigation"
           />
           <FeatureCard
             title="Consciousness Expansion"
-            desc="Connect with high-frequency teachings and spirit guides to navigate your daily life transformations with ease and clarity."
-            img="/images/XgvaNt4mLyNZ5hKcAKa9--0--IRX1A.jpg"
+            desc="Access reflective prompts and guidance tools designed to quiet decision noise, expand self-awareness, and clarify your path."
+            img="/images/card_expansion.jpg"
             delay={0.3}
             testId="card-feature-expansion"
           />
@@ -394,29 +234,26 @@ const Features = () => {
 };
 
 const Community = () => {
-  const testimonials = [
+  const benefits = [
     {
-      name: 'Sarah Chen',
-      role: 'Meditation Teacher',
-      quote:
-        'qSpirit Guide completely transformed how I view choice and decision-making. I feel deeply aligned with my true trajectory.',
-      initials: 'SC',
-      bgColor: 'bg-red-100 text-red-600',
-    },
-    {
-      name: 'Marcus Johnson',
-      role: 'Wellness Coach',
-      quote:
-        'The quantum navigation tools here resonate deeply. The maps and daily principles helped me anchor my daily consciousness.',
-      initials: 'MJ',
+      title: 'Quantum-Synchronized AI',
+      subtitle: 'Clarity in Major Decisions',
+      desc: 'Formulate clarity when facing important life decisions or career pivots. The AI synchronizes with your selected parameters to map parallel trajectories tailored to your potential.',
+      icon: Orbit,
       bgColor: 'bg-indigo-100 text-indigo-600',
     },
     {
-      name: 'Elena Rodriguez',
-      role: 'Creative Director',
-      quote:
-        "I've never felt more connected to my choices. The community here truly understands the expansion of human consciousness.",
-      initials: 'ER',
+      title: 'Higher Self Calibration',
+      subtitle: 'Calming Alignment Anxiety',
+      desc: 'Quiet the occasional anxiety of whether your life is fully aligned with your higher self goals. Access immediate, local reflective tools to ground your daily decisions.',
+      icon: Activity,
+      bgColor: 'bg-red-100 text-red-600',
+    },
+    {
+      title: '100% Free & Unlimited',
+      subtitle: 'Extended Local Interactions',
+      desc: 'Engage in deep, extended self-reflection dialogues at absolutely zero cost. Running fully in your browser means infinite guidance without paywalls, subscriptions, or tracking.',
+      icon: InfinityIcon,
       bgColor: 'bg-emerald-100 text-emerald-600',
     },
   ];
@@ -426,15 +263,15 @@ const Community = () => {
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 space-y-4 text-center">
           <span className="font-hand text-primary text-xl">
-            Traverse together
+            Empower Your Journey
           </span>
           <h2 className="font-heading text-foreground text-4xl font-bold md:text-5xl">
-            Source Connection Stories
+            Portal Alignment Benefits
           </h2>
         </div>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          {testimonials.map((person, idx) => (
+          {benefits.map((benefit, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 30 }}
@@ -446,21 +283,21 @@ const Community = () => {
                 <div className="flex h-full flex-col p-8">
                   <div className="mb-6 flex items-center gap-4">
                     <div
-                      className={`flex h-14 w-14 items-center justify-center rounded-full font-heading text-lg font-bold ${person.bgColor}`}
+                      className={`flex h-14 w-14 items-center justify-center rounded-full ${benefit.bgColor}`}
                     >
-                      {person.initials}
+                      <benefit.icon className="h-6 w-6" />
                     </div>
                     <div>
                       <p className="font-heading text-foreground font-bold">
-                        {person.name}
+                        {benefit.title}
                       </p>
                       <p className="text-muted-foreground text-sm">
-                        {person.role}
+                        {benefit.subtitle}
                       </p>
                     </div>
                   </div>
-                  <p className="text-muted-foreground flex-1 leading-relaxed italic">
-                    "{person.quote}"
+                  <p className="text-muted-foreground flex-1 leading-relaxed">
+                    {benefit.desc}
                   </p>
                 </div>
               </div>
@@ -500,162 +337,10 @@ const QuoteSection = () => {
   );
 };
 
-export const Footer = () => {
-  return (
-    <footer className="from-secondary/5 via-background to-primary/5 border-border/40 relative border-t bg-gradient-to-br px-6 py-16">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-8 lg:gap-12">
-          {/* Left Column: Brand */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-col justify-center space-y-3"
-          >
-            <div className="flex items-center gap-3">
-              <Compass className="text-primary h-7 w-7" />
-              <h3 className="font-heading text-foreground text-lg font-bold">
-                qSpirit Guide
-              </h3>
-            </div>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              Navigate the Multiverse. Expand your Essence. Realize your entanglement and align with your highest path.
-            </p>
-          </motion.div>
-
-          {/* Center Column: Links by Category */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="space-y-6"
-          >
-            {/* Learn */}
-            <div className="space-y-3">
-              <div className="text-primary flex items-center gap-2">
-                <BookOpen className="h-5 w-5" />
-                <span className="font-heading text-sm font-bold">Learn</span>
-              </div>
-              <div className="flex flex-col gap-2 pl-7">
-                <a
-                  href="/guide"
-                  data-testid="link-footer-guide"
-                  className="text-muted-foreground hover:text-primary w-fit text-sm transition-colors"
-                >
-                  Core Principles
-                </a>
-                <a
-                  href="/faq"
-                  data-testid="link-footer-faq"
-                  className="text-muted-foreground hover:text-primary w-fit text-sm transition-colors"
-                >
-                  FAQ
-                </a>
-              </div>
-            </div>
-
-            {/* Community */}
-            <div className="space-y-3">
-              <div className="text-primary flex items-center gap-2">
-                <Users className="h-5 w-5" />
-                <span className="font-heading text-sm font-bold">
-                  Network
-                </span>
-              </div>
-              <div className="flex flex-col gap-2 pl-7">
-                <a
-                  href="/contact"
-                  data-testid="link-footer-contact"
-                  className="text-muted-foreground hover:text-primary w-fit text-sm transition-colors"
-                >
-                  Connection Portal
-                </a>
-                <a
-                  href="/about"
-                  data-testid="link-footer-about-community"
-                  className="text-muted-foreground hover:text-primary w-fit text-sm transition-colors"
-                >
-                  About Our Vision
-                </a>
-              </div>
-            </div>
-
-            {/* Legal */}
-            <div className="space-y-3">
-              <div className="text-primary flex items-center gap-2">
-                <Lock className="h-5 w-5" />
-                <span className="font-heading text-sm font-bold">Privacy</span>
-              </div>
-              <div className="flex flex-col gap-2 pl-7">
-                <a
-                  href="/privacy"
-                  data-testid="link-footer-privacy"
-                  className="text-muted-foreground hover:text-primary w-fit text-sm transition-colors"
-                >
-                  Privacy Policy
-                </a>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right Column: CTA */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex flex-col justify-center space-y-4"
-          >
-            <div className="space-y-2">
-              <h4 className="font-heading text-foreground font-bold">
-                Join the Network
-              </h4>
-              <p className="text-muted-foreground text-sm">
-                Connect with thousands of travellers on their alignment journey.
-              </p>
-            </div>
-            <a href="/join" className="w-full">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                data-testid="button-footer-cta"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 w-full rounded-full px-6 py-3 font-bold shadow-lg transition-all hover:shadow-xl"
-              >
-                Begin Your Leap
-              </motion.button>
-            </a>
-          </motion.div>
-        </div>
-
-        {/* Divider */}
-        <div className="border-border/40 my-8 border-t" />
-
-        {/* Bottom: Copyright */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-muted-foreground/60 flex flex-col items-center justify-between gap-4 text-center text-xs md:flex-row"
-        >
-          <p>
-            &copy; {new Date().getFullYear()} qSpirit Guide. All rights
-            reserved.
-          </p>
-          <p className="flex items-center justify-center gap-1">
-            Traversing the cosmic web <Heart className="h-3 w-3 text-red-400" /> in alignment
-          </p>
-        </motion.div>
-      </div>
-    </footer>
-  );
-};
-
 export default function Home() {
   return (
     <div className="bg-background selection:bg-primary/20 selection:text-primary-foreground min-h-screen">
-      <Navigation />
+      <Navigation currentPath="/" />
       <Hero />
       <Features />
       <Community />
@@ -673,7 +358,7 @@ export default function Home() {
               Ready to find your alignment?
             </h2>
             <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
-              Choose your portal and start your navigation journey today.
+              Choose your path and start your private navigation journey today.
             </p>
           </motion.div>
 
@@ -683,28 +368,31 @@ export default function Home() {
                 id: 'cta-start-app',
                 title: 'Start Navigating',
                 description:
-                  'Access the multiverse portal. Track your path choices and check your alignment coefficients.',
+                  'Access the mini LLM app directly in your browser. Private, fast, and 100% off-grid.',
                 href: '/app',
                 testId: 'button-cta-app',
                 icon: <Compass className="text-primary h-8 w-8 animate-spin-slow" />,
+                buttonText: 'Consult Spirit Guide',
               },
               {
                 id: 'cta-guide',
-                title: 'Core Principles',
+                title: 'Pathfinder Guide',
                 description:
-                  'Learn the fundamentals of quantum alignment. A structured guide to traversing existence paths.',
+                  'Learn how to prompt your guide, tune archetypes, and navigate decision points.',
                 href: '/guide',
                 testId: 'button-cta-guide',
                 icon: <BookOpen className="text-primary h-8 w-8" />,
+                buttonText: 'Read Guide',
               },
               {
-                id: 'cta-explore',
-                title: 'Explore More',
+                id: 'cta-privacy',
+                title: 'Privacy & Safeguards',
                 description:
-                  'Discover path alignment metrics, high-frequency focus exercises, and daily guidance.',
-                href: '/explore',
-                testId: 'button-cta-explore',
-                icon: <Sparkles className="text-primary h-8 w-8 animate-pulse" />,
+                  'Understand our zero-tracking, 100% local processing guarantee for your peace of mind.',
+                href: '/privacy',
+                testId: 'button-cta-privacy',
+                icon: <Lock className="text-primary h-8 w-8" />,
+                buttonText: 'View Privacy',
               },
             ].map((cta, idx) => (
               <motion.div
@@ -728,9 +416,9 @@ export default function Home() {
                 <a href={cta.href}>
                   <button
                     data-testid={cta.testId}
-                    className="bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer rounded-full px-6 py-2 text-sm font-bold shadow-md transition-colors"
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer rounded-full px-6 py-2.5 text-sm font-bold shadow-md transition-colors"
                   >
-                    Open Portal
+                    {cta.buttonText}
                   </button>
                 </a>
               </motion.div>

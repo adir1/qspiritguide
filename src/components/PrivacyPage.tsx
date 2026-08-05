@@ -1,112 +1,90 @@
 import { motion } from 'framer-motion';
-import { ArrowLeft } from 'lucide-react';
+import { ShieldCheck, Lock, HardDrive, EyeOff } from 'lucide-react';
+import Navigation from './Navigation';
+import Footer from './Footer';
 
-export default function Privacy() {
+export default function PrivacyPage() {
   return (
-    <div className="from-primary/5 via-background to-secondary/5 min-h-screen bg-gradient-to-br p-6">
-      <div className="mx-auto max-w-3xl">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
-        >
-          <a href="/">
-            <button
-              data-testid="button-back-privacy"
-              className="hover:bg-secondary/20 mb-4 rounded-full p-2 transition-colors"
-            >
-              <ArrowLeft className="h-5 w-5" />
-            </button>
-          </a>
-        </motion.div>
+    <div className="bg-background text-foreground flex min-h-screen flex-col">
+      <Navigation currentPath="/privacy" />
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="space-y-8"
-        >
-          <div>
-            <h1 className="font-heading text-foreground mb-4 text-4xl font-bold md:text-5xl">
-              Privacy Policy
-            </h1>
-          </div>
-
-          <div className="bg-card rounded-[2rem] border-none shadow-lg">
-            <div className="space-y-6 p-8 md:p-12">
-              <div className="space-y-3">
-                <h2 className="font-heading text-foreground text-xl font-bold">
-                  Data We Collect
-                </h2>
-                <p className="text-muted-foreground">
-                  We collect email addresses from users who choose to join our
-                  network. No payment information or sensitive data is
-                  required. Alignment progress and settings are stored locally in your browser using
-                  localStorage.
-                </p>
-              </div>
-
-              <div className="space-y-3">
-                <h2 className="font-heading text-foreground text-xl font-bold">
-                  How We Use Your Data
-                </h2>
-                <p className="text-muted-foreground">
-                  Your email is used only for newsletter communications,
-                  multiverse mapping updates, and network alerts. We never sell or share your data with third
-                  parties. You can unsubscribe at any time.
-                </p>
-              </div>
-
-              <div className="space-y-3">
-                <h2 className="font-heading text-foreground text-xl font-bold">
-                  Session Data
-                </h2>
-                <p className="text-muted-foreground">
-                  Your alignment sessions and path choices are stored locally on
-                  your device. We do not track or collect information about your
-                  usage patterns. You have full control over your data.
-                </p>
-              </div>
-
-              <div className="space-y-3">
-                <h2 className="font-heading text-foreground text-xl font-bold">
-                  Security
-                </h2>
-                <p className="text-muted-foreground">
-                  We take your privacy seriously. All data transmissions are
-                  encrypted. We follow best practices for web security and
-                  regularly update our systems.
-                </p>
-              </div>
-
-              <div className="space-y-3">
-                <h2 className="font-heading text-foreground text-xl font-bold">
-                  Contact Us
-                </h2>
-                <p className="text-muted-foreground">
-                  If you have concerns about your privacy, please reach out
-                  through our contact page. We're here to help.
-                </p>
-              </div>
-
-              <div className="border-border/40 text-muted-foreground border-t pt-4 text-sm">
-                Last updated: {new Date().toLocaleDateString()}
-              </div>
+      <main className="flex-1 px-6 py-16 md:px-12 lg:px-24">
+        <div className="mx-auto max-w-4xl space-y-12">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="space-y-4 text-center"
+          >
+            <div className="bg-primary/10 text-primary border-primary/20 mx-auto inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-semibold uppercase tracking-wider">
+              <ShieldCheck className="h-4 w-4" />
+              Privacy & Data Sovereignty
             </div>
-          </div>
+            <h1 className="font-heading text-4xl font-bold md:text-6xl">
+              Privacy Policy & Safeguards
+            </h1>
+            <p className="text-muted-foreground mx-auto max-w-2xl text-lg leading-relaxed">
+              qSpirit Guide is designed from the ground up as a zero-data-collection, browser-native platform. Your introspection belongs strictly to you.
+            </p>
+          </motion.div>
 
-          <div className="text-center">
-            <a href="/">
-              <button
-                data-testid="button-back-home-privacy"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 py-2 font-bold"
-              >
-                Back to The Gateway
-              </button>
-            </a>
+          {/* Privacy Grid */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="grid grid-cols-1 gap-6 md:grid-cols-2"
+          >
+            <div className="bg-card border-border/60 rounded-3xl border p-8 space-y-3">
+              <div className="bg-primary/15 text-primary rounded-xl p-3 w-fit">
+                <HardDrive className="h-6 w-6" />
+              </div>
+              <h3 className="font-heading text-xl font-bold">100% Local AI Processing</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                The mini LLM model runs directly in your web browser using WebGPU/transformers.js. Your prompts, inputs, and generated replies are processed locally on your CPU/GPU and never sent to any remote server.
+              </p>
+            </div>
+
+            <div className="bg-card border-border/60 rounded-3xl border p-8 space-y-3">
+              <div className="bg-primary/15 text-primary rounded-xl p-3 w-fit">
+                <EyeOff className="h-6 w-6" />
+              </div>
+              <h3 className="font-heading text-xl font-bold">Zero Data Harvesting</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                We do not collect names, email addresses, usage analytics, or personal profiles. There are no registration forms, ads, or tracking cookies.
+              </p>
+            </div>
+
+            <div className="bg-card border-border/60 rounded-3xl border p-8 space-y-3">
+              <div className="bg-primary/15 text-primary rounded-xl p-3 w-fit">
+                <Lock className="h-6 w-6" />
+              </div>
+              <h3 className="font-heading text-xl font-bold">Browser-Only Storage</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Your settings and past session logs are saved exclusively in your browser&apos;s local storage (`localStorage` or `IndexedDB`). Clearing your browser cache permanently removes all session history.
+              </p>
+            </div>
+
+            <div className="bg-card border-border/60 rounded-3xl border p-8 space-y-3">
+              <div className="bg-primary/15 text-primary rounded-xl p-3 w-fit">
+                <ShieldCheck className="h-6 w-6" />
+              </div>
+              <h3 className="font-heading text-xl font-bold">Cloudflare Security</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                We use privacy-friendly Cloudflare Turnstile bot protection to secure static page delivery without utilizing invasive tracking cookies.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Last Updated */}
+          <div className="text-muted-foreground/70 text-center text-xs pt-4">
+            Last updated: August 2026 &bull; qSpirit Guide Privacy Architecture
           </div>
-        </motion.div>
-      </div>
+        </div>
+      </main>
+
+      <Footer />
     </div>
   );
 }

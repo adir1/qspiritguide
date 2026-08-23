@@ -8,9 +8,12 @@ import {
   Lock,
   CheckCircle,
   Orbit,
+  Activity,
+  Infinity as InfinityIcon,
 } from 'lucide-react';
 import Navigation from './Navigation';
 import Footer from './Footer';
+
 
 
 
